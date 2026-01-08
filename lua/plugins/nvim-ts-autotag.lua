@@ -11,9 +11,12 @@ return {
           enable_rename = true,
           enable_close_on_slash = false,
         },
+        -- aliases = {
+        --   ["htmlangular"] = "html",
+        -- },
         -- индивидуальные настройки по языкам (опционально)
         per_filetype = {
-          -- ['html'] = { enable_close = false },
+          ["html"] = { enable_close = false },
         },
       })
     end,

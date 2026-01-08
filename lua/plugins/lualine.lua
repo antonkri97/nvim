@@ -5,7 +5,6 @@ return {
     require("lualine").setup({
       options = {
         theme = "auto",
-        -- icons_enabled = false, -- 👈 минимализм
         component_separators = "",
         section_separators = "",
         globalstatus = true, -- одна строка статуса на всё окно (Neovim 0.9+)

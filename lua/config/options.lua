@@ -1,5 +1,6 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
+vim.opt.clipboard = "unnamedplus"
 
 vim.api.nvim_create_autocmd({ "InsertEnter" }, {
   callback = function()
@@ -16,4 +17,9 @@ vim.keymap.set("n", "<leader>dd", vim.diagnostic.open_float, { desc = "Line diag
 vim.keymap.set("n", "<leader>dq", vim.diagnostic.setqflist, { desc = "Workspace diagnostics" })
 vim.keymap.set("n", "<leader>dl", vim.diagnostic.setloclist, { desc = "Buffer diagnostics" })
 
--- vim.cmd("colorscheme onedark")
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = { "htmlangular" },
+  callback = function()
+    vim.treesitter.start()
+  end,
+})
