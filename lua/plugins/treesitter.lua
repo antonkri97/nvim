@@ -1,21 +1,18 @@
 return {
   "nvim-treesitter/nvim-treesitter",
+  branch = "main",
   build = ":TSUpdate",
-  otps = {
+  opts = {
+    ensure_installed = { "yaml", "html", "angular", "markdown", "typescript", "lua", "vim" },
     auto_install = true,
-    highlight = {
-      enable = true,
-    },
-    indent = {
-      enable = true,
-    },
-    ensure_installed = { "yaml", "html", "angular", "markdown" },
+    highlight = { enable = true },
+    indent = { enable = true },
   },
-  config = function()
-    require("nvim-treesitter").setup({
-      -- Directory to install parsers and queries to (prepended to `runtimepath` to have priority)
-      install_dir = vim.fn.stdpath("data") .. "/site",
-    })
-    require("nvim-treesitter").install({ "yaml", "html", "angular", "markdown" })
+  config = function(_, opts)
+    require("nvim-treesitter").install({ "yaml", "html", "angular", "markdown", "typescript", "lua", "vim" })
+
+    vim.opt.foldmethod = "expr"
+    vim.opt.foldexpr = "v:lua.vim.treesitter.foldexpr()"
+    vim.opt.foldenable = false
   end,
 }

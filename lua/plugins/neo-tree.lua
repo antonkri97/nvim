@@ -139,6 +139,7 @@ return {
             "toggle_node",
             nowait = false, -- disable `nowait` if you have existing combos starting with this char that you want to use
           },
+          ["y"] = "copy_to_clipboard",
           ["<2-LeftMouse>"] = "open",
           ["<cr>"] = "open",
           ["<esc>"] = "cancel", -- close preview or floating neo-tree window
@@ -281,6 +282,42 @@ return {
             ["on"] = { "order_by_name", nowait = false },
             ["os"] = { "order_by_size", nowait = false },
             ["ot"] = { "order_by_type", nowait = false },
+            ["n"] = function(state)
+              local node = state.tree:get_node()
+              local path = node.path
+
+              -- Если выбран файл, берем его родительскую папку
+              if node.type ~= "directory" then
+                path = vim.fn.fnamemodify(path, ":h")
+              end
+
+              -- Запрашиваем тип и имя (например, "component my-nav")
+              vim.ui.input({ prompt = "Angular Generate: " }, function(input)
+                if not input or input == "" then
+                  return
+                end
+
+                -- Выполняем команду в терминале
+                -- Используем --dry-run, если хотите сначала проверить (опционально)
+                local cmd = string.format(
+                  "cd %s && npx ng g %s --project=my-selectel-panel --standalone",
+                  vim.fn.shellescape(path),
+                  input
+                )
+
+                vim.fn.jobstart(cmd, {
+                  on_exit = function(_, code)
+                    if code == 0 then
+                      vim.notify("Angular: Success!")
+                      -- Обновляем дерево, чтобы увидеть новые файлы
+                      require("neo-tree.sources.manager").refresh("filesystem")
+                    else
+                      vim.notify("Angular: Error running command", vim.log.levels.ERROR)
+                    end
+                  end,
+                })
+              end)
+            end,
             -- ['<key>'] = function(state) ... end,
           },
           fuzzy_finder_mappings = { -- define keymaps for filter popup window in fuzzy_finder_mode

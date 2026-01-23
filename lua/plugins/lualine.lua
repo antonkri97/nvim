@@ -19,7 +19,7 @@ return {
         lualine_c = {
           {
             "filename",
-            path = 1, -- относительный путь
+            path = 3, -- относительный путь
             symbols = {
               modified = " [+]",
               readonly = " [RO]",

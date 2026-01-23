@@ -11,6 +11,10 @@ return {
         name = "selectel",
         path = "~/obsidian-selectel",
       },
+      {
+        name = "personal",
+        path = "~/obsidian-personal",
+      },
     },
   },
 }
