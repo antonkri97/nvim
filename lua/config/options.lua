@@ -58,3 +58,12 @@ vim.treesitter.language.register("angular", "angularhtml")
 vim.api.nvim_create_user_command("I18n", function()
   vim.cmd('split | term zsh -ic "i18n"')
 end, {})
+
+-- Функция для запуска коммита в плавающем окне
+local function commit_bot()
+  vim.fn.termopen("npm run commit")
+  vim.cmd("startinsert")
+end
+
+-- Биндим на <leader>gc (git commit)
+vim.keymap.set("n", "<leader>gc", commit_bot, { desc = "Run bot-commit" })

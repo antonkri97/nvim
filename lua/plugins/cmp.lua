@@ -41,7 +41,23 @@ return {
           luasnip.lsp_expand(args.body)
         end,
       },
-
+      formatting = {
+        format = function(entry, vim_item)
+          -- Используем detail (стандартное поле LSP для описания/типа)
+          if entry.completion_item and entry.completion_item.detail then
+            vim_item.menu = entry.completion_item.detail
+          -- Fallback на имя источника, если детали нет
+          else
+            vim_item.menu = ({
+              nvim_lsp = "[LSP]",
+              luasnip = "[Snip]",
+              buffer = "[Buffer]",
+              path = "[Path]",
+            })[entry.source.name] or ""
+          end
+          return vim_item
+        end,
+      },
       mapping = cmp.mapping.preset.insert({
         ["<C-Space>"] = cmp.mapping.complete(), -- вызвать вручную
         ["<CR>"] = cmp.mapping.confirm({ select = true }),

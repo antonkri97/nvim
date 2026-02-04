@@ -56,7 +56,9 @@ return {
         return vim.lsp.rpc.start(cmd, dispatchers)
       end,
 
-      filetypes = { "typescript", "html", "typescriptreact", "typescript.tsx", "htmlangular" },
+      -- Убран "typescript" — его обрабатывает typescript-tools
+      -- Angular LSP теперь только для шаблонов
+      -- filetypes = { "html", "htmlangular" },
       root_markers = { "angular.json", "nx.json" },
     })
     vim.lsp.config("cssls", {

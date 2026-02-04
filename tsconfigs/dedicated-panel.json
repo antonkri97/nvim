@@ -1,0 +1,17 @@
+{
+  "extends": "/Users/krivokhizhinanton/selectel-mono-panel/packages/dedicated-panel/tsconfig.json",
+  "include": [
+    "/Users/krivokhizhinanton/selectel-mono-panel/packages/dedicated-panel/src/**/*",
+    "/Users/krivokhizhinanton/selectel-mono-panel/packages/panel-kit/src/**/*",
+    "/Users/krivokhizhinanton/selectel-mono-panel/packages/prices-kit/src/**/*"
+  ],
+  "exclude": [
+    "**/node_modules/**",
+    "**/dist/**",
+    "/Users/krivokhizhinanton/selectel-mono-panel/packages/!(dedicated-panel|panel-kit|prices-kit)/**"
+  ],
+  "compilerOptions": {
+    "skipLibCheck": true,
+    "disableReferencedProjectLoad": true
+  }
+}
